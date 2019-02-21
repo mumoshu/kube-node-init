@@ -1,3 +1,37 @@
 apiVersion: v1
-entries: {}
+entries:
+  common:
+  - apiVersion: v1
+    appVersion: 0.0.4
+    created: 2019-02-22T00:19:24.465781+09:00
+    description: Common chartbuilding components and helpers
+    digest: a742ed3376700ec8c1cc4aa29a412288250efec3b93131135b12e3ea8ee3db1c
+    home: https://helm.sh
+    maintainers:
+    - email: technosophos@gmail.com
+      name: technosophos
+    - email: adnan@bitnami.com
+      name: prydonius
+    name: common
+    urls:
+    - https://github.com/mumoshu/kube-node-init/releases/download/common-0.0.4/common-0.0.4.tgz
+    version: 0.0.4
+  kube-node-init:
+  - appVersion: 0.1.0
+    created: 2019-02-22T00:19:23.90403+09:00
+    description: Kubernetes daemonset for node initial configuration
+    digest: 5ee41e34b68c5aaf7a1f31be171b5bd700a9d67b0ecb2fe868f6e2e2b358bf8e
+    home: https://github.com/mumoshu/kube-node-init
+    keywords:
+    - node
+    - configuration
+    maintainers:
+    - email: ykuoka@gmail.com
+      name: mumoshu
+    name: kube-node-init
+    sources:
+    - https://github.com/mumoshu/kube-node-init
+    urls:
+    - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.1.0/kube-node-init-0.1.0.tgz
+    version: 0.1.0
 generated: 2019-02-21T23:48:58.129689+09:00
