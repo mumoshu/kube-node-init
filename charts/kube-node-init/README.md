@@ -1,6 +1,6 @@
 # kube-node-init
 
-[kube-node-init](https://github.com/mumoshu/kube-node-init)Kubernetes daemonset for node initial configuration.
+[kube-node-init](https://github.com/mumoshu/kube-node-init) is a Kubernetes daemonset for node initial configuration.
 
 ## Prerequisites
 

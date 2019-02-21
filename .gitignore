@@ -1,3 +1,4 @@
 *~
 .env
 charts/kube-node-init/charts
+charts/kube-node-init/kube-node-init-*.tgz
