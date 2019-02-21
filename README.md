@@ -10,8 +10,8 @@
 ## Getting Started
 
 ```console
-$ helm repo add kube-node-init https://mumoshu.github.io/kube-node-init/index.yaml
-$ helm install --name kube-node-init stable/kube-node-init
+$ helm repo add kube-node-init-charts https://mumoshu.github.io/kube-node-init/index.yaml
+$ helm install --name kube-node-init kube-node-init-charts/kube-node-init
 ```
 
 The example, default `script` installs a tweaked `/etc/chrony.conf` and then restarts `chrony` systemd service running on your Amazon Linux 2 backed node.
