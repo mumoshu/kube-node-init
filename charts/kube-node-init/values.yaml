@@ -49,15 +49,6 @@ updateStrategy: RollingUpdate
 ## Sets PriorityClassName if defined
 # priorityClassName:
 
-## Override the agent's liveness probe logic from the default:
-## In case of issues with the probe, you can disable it with the
-## following values, to allow easier investigating:
-# livenessProbe:
-#   exec:
-#     command: ["/bin/true"]
-## Override the cluster-agent's readiness probe logic from the default:
-# readinessProbe:
-
 ## You can modify the security context used to run the containers by
 ## modifying the label type below:
 securityContext:
