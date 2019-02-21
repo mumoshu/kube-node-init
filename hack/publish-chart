@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+chart-releaser upload -o mumoshu -r kube-node-init -t $GITHUB_TOKEN -p charts/kube-node-init --recursive
+chart-releaser index -o mumoshu -r kube-node-init -t $GITHUB_TOKEN -p docs/index.yaml

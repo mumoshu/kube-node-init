@@ -1,0 +1,55 @@
+{{- $root := . -}}
+{{- range $name, $config := .Values.configMaps -}}
+{{- if $config.enabled }}
+
+{{- if not (empty $config.env) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "node-init.env.fullname" (list $root $name) }}
+{{- with $config.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+    component: env
+{{- with $config.labels }}
+{{ toYaml .| indent 4 }}
+{{- end }}
+data:
+{{- with $config.env }}
+{{ toYaml . | indent 2 }}
+{{- end }}
+{{- end }}
+
+{{- if not (empty $config.files) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "node-init.files.fullname" (list $root $name) }}
+{{- with $config.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+    component: files
+{{- with $config.labels }}
+{{ toYaml .| indent 4 }}
+{{- end }}
+data:
+{{- range $key, $value := $config.files }}
+  {{ $key  }}: |
+{{- if kindIs "map" $value }}
+{{ regexReplaceAll "(\\s+\\w+:\\s+)\\\\(\\!\\w+)" ( toYaml $value ) "${1}${2}" | indent 4 }}
+{{- else }}
+{{ $value | indent 4 }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- end }}
+{{- end -}}

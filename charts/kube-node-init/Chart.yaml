@@ -1,0 +1,13 @@
+name: kube-node-init
+version: 0.1.0
+appVersion: 0.1.0
+description: Kubernetes daemonset for node initial configuration
+keywords:
+- node
+- configuration
+home: https://github.com/mumoshu/kube-node-init
+sources:
+- https://github.com/mumoshu/kube-node-init
+maintainers:
+- name: mumoshu
+  email: ykuoka@gmail.com
