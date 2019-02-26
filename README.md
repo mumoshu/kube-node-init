@@ -48,5 +48,28 @@ $ helm upgrade --name kube-node-init stable/kube-node-init --values values.yaml
 
 ### Kernel parameters
 
-kube-node-init also tweaks several kernel parameters listed under the `sysctl.params` key in the default `values.yaml`. In case you want to disable this feature, set `--set sysctl.enabled=true` while installing the chart.
+kube-node-init also tweaks several kernel parameters [listed under the `sysctl.params` key in the default `values.yaml`](https://github.com/mumoshu/kube-node-init/blob/c4a465522118bc7537d2b90e0bddca057a67b04b/charts/kube-node-init/values.yaml#L26-L50):
 
+> ```
+> # default: 128
+> net.core.somaxconn: 65535
+> # default: 256
+> net.ipv4.tcp_max_syn_backlog: 65535
+> # dfault: 1000
+> net.core.netdev_max_backlog: 16384
+> # default: 32768 60999
+> net.ipv4.ip_local_port_range: 1024 65535
+> # default: 0
+> # enable(1) to optimize against short-lived sessions
+> net.ipv4.tcp_tw_reuse: 1
+> # default: 7200
+> net.ipv4.tcp_keepalive_time: 200
+> # default: 75
+> net.ipv4.tcp_keepalive_intvl: 60
+> # default: 9
+> net.ipv4.tcp_keepalive_probes: 3
+> # default: 6
+> net.ipv4.tcp_syn_retries: 5
+> ```
+
+In case you want to disable this feature, set `--set sysctl.enabled=true` while installing the chart.
