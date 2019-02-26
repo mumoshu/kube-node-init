@@ -6,3 +6,6 @@ set -vx
 (cd charts/kube-node-init; helm package .)
 chart-releaser upload -o mumoshu -r kube-node-init -t $GITHUB_TOKEN -p charts/kube-node-init
 chart-releaser index -o mumoshu -r kube-node-init -t $GITHUB_TOKEN -p docs/index.yaml
+git add docs/index.yaml
+git commit -m 'Update helm chart repository index'
+git push origin master
