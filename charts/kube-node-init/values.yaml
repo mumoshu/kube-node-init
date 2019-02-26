@@ -23,6 +23,32 @@ script: |
   echo
   systemctl status chronyd
 
+sysctl:
+  # When enabled, host's /proc/sys is mounted under /host/proc/sys and the following kernel params are set
+  enabled: true
+  params:
+    # default: 812152
+    #fs.file-max: 400143
+    # default: 128
+    net.core.somaxconn: 65535
+    # default: 256
+    net.ipv4.tcp_max_syn_backlog: 65535
+    # dfault: 1000
+    net.core.netdev_max_backlog: 16384
+    # default: 32768 60999
+    net.ipv4.ip_local_port_range: 1024 65535
+    # default: 0
+    # enable(1) to optimize against short-lived sessions
+    net.ipv4.tcp_tw_reuse: 1
+    # default: 7200
+    net.ipv4.tcp_keepalive_time: 200
+    # default: 75
+    net.ipv4.tcp_keepalive_intvl: 60
+    # default: 9
+    net.ipv4.tcp_keepalive_probes: 3
+    # default: 6
+    net.ipv4.tcp_syn_retries: 5
+
 # useHostNetwork: true
 
 useHostPID: true
@@ -130,6 +156,66 @@ configMaps:
   node-init:
     enabled: true
     mountPath: /var/node-init
+    templates:
+      "run": |-
+        #!/bin/bash
+        set -euo pipefail
+
+        trap 'kill $(jobs -p); exit 0' TERM
+
+        name={{ template "node-init.fullname" . }}
+
+        echo "$name started."
+
+        st_hash_file="/host/var/$name"
+        if [[ ! -f "$st_hash_file" ]]; then
+          touch "$st_hash_file"
+        fi
+
+        st_tar_hash={{ toYaml . | sha256sum }}
+        st_cur_hash=$(cat "$st_hash_file")
+        if [[ "$st_tar_hash" != "$st_cur_hash" ]]; then
+          echo "init script must be run."
+
+          {{ if .Values.sysctl.enabled -}}
+          set_kernel_param() {
+            k=$1
+            v=$2
+            path=/host/proc/sys/$(echo $k | sed -e 's/\./\//g')
+            c=$(if [ -f $path ]; then cat $path; fi)
+            if [ "$c" != "$v" ]; then
+              echo changing $k: "$c => $v"
+              echo "$k = $v" >> /etc/sysctl.d/80-node-init.conf
+            else
+              echo retaining $k: "$c"
+            fi
+          }
+          printf "" > /etc/sysctl.d/80-node-init.conf
+          {{ range $k, $v := .Values.sysctl.params -}}
+          set_kernel_param "{{ $k }}" "{{ $v }}"
+          {{ end -}}
+          echo using /etc/sysctl.d/80-node-init.conf
+          cat /etc/sysctl.d/80-node-init.conf
+          echo running update-sysctl
+          cat <<EOF > /etc/systemd/system/update-sysctl.service
+        [Unit]
+        Description=Update sysctl values written by kube-node-init
+        [Service]
+        ExecStart=/usr/lib/systemd/systemd-sysctl
+        EOF
+          systemctl daemon-reload
+          systemctl restart update-sysctl
+          {{- end }}
+
+        {{ .Values.script | indent 2 }}
+        fi
+
+        echo "$name" finished.
+
+        while true; do
+          sleep 60 &
+          wait $!
+        done
     files:
       "chrony.conf": |-
         ##

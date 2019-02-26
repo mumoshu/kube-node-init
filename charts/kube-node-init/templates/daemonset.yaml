@@ -45,36 +45,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command:
         - /bin/bash
-        - -c
-        - |
-          #!/bin/bash
-          set -euo pipefail
-
-          trap 'kill $(jobs -p); exit 0' TERM
-
-          name={{ template "node-init.fullname" . }}
-
-          echo "$name started."
-
-          st_hash_file="/host/var/$name"
-          if [[ ! -f "$st_hash_file" ]]; then
-            touch "$st_hash_file"
-          fi
-
-          st_tar_hash={{ toYaml . | sha256sum }}
-          st_cur_hash=$(cat "$st_hash_file")
-          if [[ "$st_tar_hash" != "$st_cur_hash" ]]; then
-            echo "init script must be run."
-
-{{ .Values.script | indent 12 }}
-          fi
-
-          echo "$name" finished.
-
-          while true; do
-            sleep 60 &
-            wait $!
-          done
+        - /var/node-init/run
         resources:
 {{ toYaml .Values.resources | indent 12 }}
         env:
@@ -86,6 +57,11 @@ spec:
         volumeMounts:
         - name: host-var
           mountPath: /host/var/
+        {{ if .Values.sysctl.enabled -}}
+        - name: host-proc
+          mountPath: /host/proc
+          readOnly: true
+        {{- end }}
 {{ include "node-init.files.volumeMounts" . | indent 8 }}
 {{ toYaml .Values.volumeMounts | indent 8 }}
 {{- if .Values.livenessProbe }}
@@ -101,6 +77,12 @@ spec:
         hostPath:
           path: /var
           type: Directory
+      {{ if .Values.sysctl.enabled -}}
+      - name: host-proc
+        hostPath:
+          path: /proc
+          type: Directory
+      {{- end }}
 {{ include "node-init.files.volumes" . | indent 6 }}
 {{ toYaml .Values.volumes | indent 6 }}
       {{- if .Values.tolerations }}

@@ -1,6 +1,6 @@
 name: kube-node-init
-version: 0.1.2
-appVersion: 0.1.2
+version: 0.2.0
+appVersion: 0.1.0
 description: Kubernetes daemonset for node initial configuration
 keywords:
 - node

@@ -24,7 +24,7 @@ data:
 {{- end }}
 {{- end }}
 
-{{- if not (empty $config.files) }}
+{{- if or (not (empty $config.files)) (not (empty $config.templates)) }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -49,6 +49,12 @@ data:
 {{ $value | indent 4 }}
 {{- end }}
 {{- end }}
+
+{{- range $key, $value := $config.templates }}
+  {{ $key  }}: |
+{{ tpl $value $ | indent 4 }}
+{{- end }}
+
 {{- end }}
 
 {{- end }}
