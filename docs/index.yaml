@@ -17,6 +17,23 @@ entries:
     - https://github.com/mumoshu/kube-node-init/releases/download/common-0.0.4/common-0.0.4.tgz
     version: 0.0.4
   kube-node-init:
+  - appVersion: 0.1.0
+    created: 2019-02-26T09:48:02.215661+09:00
+    description: Kubernetes daemonset for node initial configuration
+    digest: 5213a1416e8c5968262bdad46d3e5303b7a596fd22f729c7d14c86bebda84088
+    home: https://github.com/mumoshu/kube-node-init
+    keywords:
+    - node
+    - configuration
+    maintainers:
+    - email: ykuoka@gmail.com
+      name: mumoshu
+    name: kube-node-init
+    sources:
+    - https://github.com/mumoshu/kube-node-init
+    urls:
+    - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.2.0/kube-node-init-0.2.0.tgz
+    version: 0.2.0
   - appVersion: 0.1.2
     created: 2019-02-22T02:11:59.123003+09:00
     description: Kubernetes daemonset for node initial configuration
