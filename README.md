@@ -4,6 +4,7 @@
 
 - Write files
 - Restart systemd services
+- Customize kernel parameters
 - Add Kubernetes node labels
 - Add Kubernetes node taints
 
@@ -14,9 +15,10 @@ $ helm repo add kube-node-init-charts https://mumoshu.github.io/kube-node-init/i
 $ helm install --name kube-node-init kube-node-init-charts/kube-node-init
 ```
 
-The example, default `script` installs a tweaked `/etc/chrony.conf` and then restarts `chrony` systemd service running on your Amazon Linux 2 backed node.
+The default `script` does the following to improve your EKS nodes runnin Amazon Linux 2:
 
-The conf includes `allow 127.0.0.1/32`, so that Prometheus `node-exporter`'s `ntp-collector` is able to connect the `chronyd` running on the node.
+- Installs a tweaked `/etc/chrony.conf` and then restarts `chrony` systemd service.
+   The conf includes `allow 127.0.0.1/32`, so that Prometheus `node-exporter`'s `ntp-collector` is able to connect the `chronyd` running on the node.
 
 You can create your own `values.yaml` as follows to let kube-node-init use your own script:
 
@@ -32,5 +34,8 @@ Run `helm upgrade` to let kube-node-init rerun with your script:
 ```console
 $ helm upgrade --name kube-node-init stable/kube-node-init --values values.yaml
 ```
+
+kube-node-init also tweaks several kernel parameters listed under the `sysctl.params` key in the default `values.yaml`. In case you want to disable this feature, set `--set sysctl.enabled=true` while installing the chart.
+
 
 Please read the [chart's README](https://github.com/mumoshu/kube-node-init/tree/master/charts/kube-node-init#configuration) for more configuration options.
