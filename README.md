@@ -11,7 +11,7 @@
 ## Getting Started
 
 ```console
-$ helm repo add kube-node-init-charts https://mumoshu.github.io/kube-node-init/index.yaml
+$ helm repo add kube-node-init-charts https://raw.githubusercontent.com/mumoshu/kube-node-init/master/docs
 $ helm install --name kube-node-init kube-node-init-charts/kube-node-init
 ```
 
