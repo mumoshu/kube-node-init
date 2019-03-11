@@ -9,19 +9,7 @@ image:
   #    - name: regsecret
 
 script: |
-  ls /var/node-init/chrony.conf
-  echo
-  cat /var/node-init/chrony.conf
-  echo 
-  systemctl status chronyd
-  cp /etc/chrony.conf{,.old}
-  cp /var/node-init/chrony.conf /etc/chrony.conf
-  echo
-  diff --unified /etc/chrony.conf{.old,}
-  echo
-  systemctl restart chronyd
-  echo
-  systemctl status chronyd
+  bash /var/node-init/default-script
 
 sysctl:
   # When enabled, host's /proc/sys is mounted under /host/proc/sys and the following kernel params are set
@@ -157,6 +145,20 @@ configMaps:
     enabled: true
     mountPath: /var/node-init
     templates:
+      "default-script": |-
+        ls /var/node-init/chrony.conf
+        echo
+        cat /var/node-init/chrony.conf
+        echo
+        systemctl status chronyd
+        cp /etc/chrony.conf{,.old}
+        cp /var/node-init/chrony.conf /etc/chrony.conf
+        echo
+        diff --unified /etc/chrony.conf{.old,}
+        echo
+        systemctl restart chronyd
+        echo
+        systemctl status chronyd
       "run": |-
         #!/bin/bash
         set -euo pipefail
@@ -207,7 +209,8 @@ configMaps:
           systemctl restart update-sysctl
           {{- end }}
 
-        {{ .Values.script | indent 2 }}
+        # No "| indent 2" to not break ends of bash here-docs
+        {{ .Values.script }}
         fi
 
         echo "$name" finished.
