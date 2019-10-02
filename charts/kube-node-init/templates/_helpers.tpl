@@ -47,6 +47,18 @@ Environment template block for deployable resources
 */}}
 {{- define "node-init.env" -}}
 {{- $root := . -}}
+env:
+- name: NODE_NAME
+  valueFrom:
+    fieldRef:
+      fieldPath: spec.nodeName
+{{- with $root.Values.env }}
+{{- range $name, $value := . }}
+- name: {{ $name }}
+  value: {{ default "" $value | quote }}
+{{- end }}
+{{- end }}
+
 {{- if or .Values.configMaps $root.Values.secrets }}
 envFrom:
 {{- range $name, $config := $root.Values.configMaps -}}
@@ -66,13 +78,7 @@ envFrom:
 {{- end }}
 {{- end }}
 {{- end }}
-{{- with $root.Values.env }}
-env:
-{{- range $name, $value := . }}
-  - name: {{ $name }}
-    value: {{ default "" $value | quote }}
-{{- end }}
-{{- end }}
+
 {{- end -}}
 
 
