@@ -53,6 +53,9 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: TEST
+          value: HOGE
+
 {{ include "node-init.env" . | indent 8 }}
         volumeMounts:
         - name: host-var
