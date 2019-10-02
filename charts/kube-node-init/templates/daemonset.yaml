@@ -53,7 +53,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
-          {{ include "node-init.env" . | indent 8 }}
+{{ include "node-init.env" . | indent 8 }}
         volumeMounts:
         - name: host-var
           mountPath: /host/var/
