@@ -12,3 +12,22 @@ build:
 
 push:
 	docker push mumoshu/kube-node-init:$(TAG)
+
+repackage-all:
+	scripts/repackage-all.sh
+
+DIR ?= packages-work
+REPO ?= kube-node-init
+CHART ?= kube-node-init
+
+# Creates a packages-up/prometheus-process-exporter-x.y.z.tgz and a prometheus-process-exporter-x.y.z tag and then creates a corresponding github release
+upload:
+	mkdir -p $(DIR)
+	rm -rf $(DIR)/*
+	helm package charts/$(CHART) --destination $(DIR)
+	cr upload -o mumoshu -t $(GITHUB_TOKEN) -r $(REPO) -p $(DIR)
+	cp $(DIR)/* packages/
+
+index:
+	cr index -p packages -r $(CHART) -i docs/index.yaml -o mumoshu -c https://github.com/mumoshu/$(REPO)
+	git add docs/index.yaml
