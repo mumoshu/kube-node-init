@@ -14,7 +14,7 @@ push:
 	docker push mumoshu/kube-node-init:$(TAG)
 
 repackage-all:
-	scripts/repackage-all.sh
+	scripts/repackage-all.sh || git checkout master
 
 DIR ?= packages-work
 REPO ?= kube-node-init
