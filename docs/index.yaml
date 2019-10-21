@@ -1,26 +1,27 @@
 apiVersion: v1
 entries:
-  common:
-  - apiVersion: v1
-    appVersion: 0.0.4
-    created: 2019-02-22T00:19:24.465781+09:00
-    description: Common chartbuilding components and helpers
-    digest: a742ed3376700ec8c1cc4aa29a412288250efec3b93131135b12e3ea8ee3db1c
-    home: https://helm.sh
-    maintainers:
-    - email: technosophos@gmail.com
-      name: technosophos
-    - email: adnan@bitnami.com
-      name: prydonius
-    name: common
-    urls:
-    - https://github.com/mumoshu/kube-node-init/releases/download/common-0.0.4/common-0.0.4.tgz
-    version: 0.0.4
   kube-node-init:
   - appVersion: 0.1.0
-    created: 2019-03-11T22:43:34.5788+09:00
+    created: "2019-10-21T11:46:22.453423+09:00"
     description: Kubernetes daemonset for node initial configuration
-    digest: cbd51730dc043e45cb92d57cb73830bb9b23ae5c2eecd7510f22bd38426b3b72
+    digest: 3ea048db72077b1ad6f18f772791a87046a11c49c7bad4c00afb68de3d1e72dc
+    home: https://github.com/mumoshu/kube-node-init
+    keywords:
+    - node
+    - configuration
+    maintainers:
+    - email: ykuoka@gmail.com
+      name: mumoshu
+    name: kube-node-init
+    sources:
+    - https://github.com/mumoshu/kube-node-init
+    urls:
+    - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.2.2/kube-node-init-0.2.2.tgz
+    version: 0.2.2
+  - appVersion: 0.1.0
+    created: "2019-10-21T11:46:22.222481+09:00"
+    description: Kubernetes daemonset for node initial configuration
+    digest: c3d4692251927cf2fabdc4d21ac13fcb8951bed43b20d5e0fb741bc162b1f004
     home: https://github.com/mumoshu/kube-node-init
     keywords:
     - node
@@ -35,9 +36,9 @@ entries:
     - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.2.1/kube-node-init-0.2.1.tgz
     version: 0.2.1
   - appVersion: 0.1.0
-    created: 2019-02-26T09:48:02.215661+09:00
+    created: "2019-10-21T11:46:21.946038+09:00"
     description: Kubernetes daemonset for node initial configuration
-    digest: 5213a1416e8c5968262bdad46d3e5303b7a596fd22f729c7d14c86bebda84088
+    digest: 949d316cb420c92f235e619d16b3edb2c64b091d3467f69fb8f96904a57f3ef0
     home: https://github.com/mumoshu/kube-node-init
     keywords:
     - node
@@ -52,9 +53,9 @@ entries:
     - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.2.0/kube-node-init-0.2.0.tgz
     version: 0.2.0
   - appVersion: 0.1.2
-    created: 2019-02-22T02:11:59.123003+09:00
+    created: "2019-10-21T11:46:21.701493+09:00"
     description: Kubernetes daemonset for node initial configuration
-    digest: 14a40ac57fce8fff3ceffb754fc05eda866499a369d275081327218c77e52053
+    digest: d91951c29939033e84dc7e8fea3ae8f60bdd84f79a86abdd7d4005f6b20dab29
     home: https://github.com/mumoshu/kube-node-init
     keywords:
     - node
@@ -69,9 +70,9 @@ entries:
     - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.1.2/kube-node-init-0.1.2.tgz
     version: 0.1.2
   - appVersion: 0.1.1
-    created: 2019-02-22T01:57:51.866806+09:00
+    created: "2019-10-21T11:46:21.457201+09:00"
     description: Kubernetes daemonset for node initial configuration
-    digest: 8f7d8341d6ec54b0f23f24afdaab062d30cfd0102f1289690097391231dd983a
+    digest: b3ae1588d588fbad550bd390fe6d5ca6c4c9779e65c6bd60b90ff8f0f6d16807
     home: https://github.com/mumoshu/kube-node-init
     keywords:
     - node
@@ -85,21 +86,4 @@ entries:
     urls:
     - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.1.1/kube-node-init-0.1.1.tgz
     version: 0.1.1
-  - appVersion: 0.1.0
-    created: 2019-02-22T00:19:23.90403+09:00
-    description: Kubernetes daemonset for node initial configuration
-    digest: 5ee41e34b68c5aaf7a1f31be171b5bd700a9d67b0ecb2fe868f6e2e2b358bf8e
-    home: https://github.com/mumoshu/kube-node-init
-    keywords:
-    - node
-    - configuration
-    maintainers:
-    - email: ykuoka@gmail.com
-      name: mumoshu
-    name: kube-node-init
-    sources:
-    - https://github.com/mumoshu/kube-node-init
-    urls:
-    - https://github.com/mumoshu/kube-node-init/releases/download/kube-node-init-0.1.0/kube-node-init-0.1.0.tgz
-    version: 0.1.0
-generated: 2019-02-21T23:48:58.129689+09:00
+generated: "2019-10-21T11:46:21.086394+09:00"
