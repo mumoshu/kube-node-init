@@ -8,6 +8,9 @@ metadata:
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
 spec:
+  selector:
+    matchLabels:
+      app: {{ template "node-init.fullname" . }}
   template:
     metadata:
       labels:
