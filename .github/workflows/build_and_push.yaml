@@ -1,0 +1,21 @@
+name: build and push
+on:
+  push:
+    branches:
+      - master
+      - ref/tags/*
+      - feature/*
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: chekout
+        uses: actions/checkout@master
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: assembly_line
+        uses: C-FO/image_assembly_line@master
+        with:
+          image_name: clusterops/kube-node-init
