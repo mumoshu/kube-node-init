@@ -1,4 +1,4 @@
-TAG ?= 0.1.0
+TAG ?= 0.2.4
 
 dev: TAG=dev-$(shell md5 -q Dockerfile)
 dev:
@@ -8,10 +8,10 @@ dev:
 	helm tiller run tiller-system -- helm upgrade --debug --install --force --set image.tag=$(TAG) --set script=echo node-init-dev charts/kube-node-init
 
 build:
-	docker build -t mumoshu/kube-node-init:$(TAG) .
+	docker build -t clusterops/kube-node-init:$(TAG) .
 
 push:
-	docker push mumoshu/kube-node-init:$(TAG)
+	docker push clusterops/kube-node-init:$(TAG)
 
 repackage-all:
 	scripts/repackage-all.sh || git checkout master
