@@ -1,0 +1,62 @@
+# config for action-label-syncer
+# https://github.com/micnncim/action-label-syncer
+
+# default label
+- name: bug
+  description: Something isn't working
+  color: d73a4a
+- name: documentation
+  description: Improvements or additions to documentation
+  color: 0075ca
+- name: duplicate
+  description: This issue or pull request already exists
+  color: cfd3d7
+- name: enhancement
+  description: New feature or request
+  color: a2eeef
+- name: good first issue
+  description: Good for newcomers
+  color: 7057ff
+- name: invalid
+  description: This doesn't seem right
+  color: e4e669
+- name: help wanted
+  description: Extra attention is needed
+  color: 008672
+- name: question
+  description: Further information is requested
+  color: d876e3
+- name: wontfix
+  description: This will not be worked on
+  color: ffffff
+
+
+# busho label
+- name: 武将/家康:ieyasu
+  description: リリース後運用保守PR
+  color: fc9492
+- name: 武将/秀吉:hideyoshi
+  description: 中期マジ価値PR
+  color: fbca04
+- name: 武将/信長:nobunaga
+  description: 短期マジ価値PR
+  color: 88dd5d
+- name: 武将/綱吉
+  description: リリース前保守運用PR
+  color: f2b5d5
+
+# https://github.com/haya14busa/action-bumpr
+- name: bump:major
+  description: bump major version
+  color: ed5e71
+- name: bump:minor
+  description: bump minor version
+  color: 6820a3
+- name: bump:patch
+  description: bump patch version
+  color: 4eaad8
+
+# https://github.com/pascalgn/automerge-action
+- name: automerge
+  description: automerge mark
+  color: 0052cc

@@ -1,0 +1,38 @@
+name: build test
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          cancel_others: 'false'
+
+      - name: Build Test
+        if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
+        uses: C-FO/image_assembly_line@master
+        env:
+          IMAGE_TAG: dev
+          REGISTRY_NAME: 057575985710.dkr.ecr.ap-northeast-1.amazonaws.com
+        with:
+          image_name: clusterops/kube-node-init
+          target: build.docker
+          no_push: true
+          build_directory: ${{ matrix.dir }}
+
+  all-build-passed:
+    name: All Build Test passed
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Check Result
+        if: ${{ needs.build.result == 'failure' || needs.build.result == 'canceled' }}
+        run: exit 1
+      - run: echo "all build passed"

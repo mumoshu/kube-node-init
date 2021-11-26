@@ -1,0 +1,7 @@
+# CODEOWNERS file
+# https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
+
+#CODEOWNERS         @C-FO/sre
+#tools/**           @C-FO/sre
+#.github/**         @C-FO/sre
+#
